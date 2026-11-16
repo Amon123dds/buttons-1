@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown & Counter</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #timer {
+      font-size: 2em;
+      color: #333;
+      margin-bottom: 50px;
+    }
+    /* #countLabel {
+      font-size: 2em;
+      margin-bottom: 10px;
+      display: block;
+      color: blue;
+    } */
+    .buttons {
+      padding: 10px 100px;
+      margin: 5px;
+      font-size: 1em;
+
+
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Countdown till end of November</h1>
+  <div id="timer">Loading...</div>
+
+  <label id="countLabel" class="counter">0</label><br>
+  <div id="buttonContainer">
+    <button id="decreaseButton" class="buttons">decrease</button>
+    <button id="resetButton" class="buttons">reset</button>
+    <button id="increaseButton" class="buttons">increase</button>
+    <button id="upgradeButton" class="buttons">double</button>
+  </div>
+
+  <script>
+    // Countdown Timer
+    function updateTimer() {
+      const now = new Date();
+      const endoffMay = new Date(now.getFullYear(), 1, 165 );
+
+      const diff = endoffMay - now;
+
+      if (diff <= 0) {
+        document.getElementById("timer").textContent = "Time for project is over!";
+        clearInterval(timerInterval);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("timer").textContent =
+        `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+    }
+
+    updateTimer();
+    const timerInterval = setInterval(updateTimer, 1000);
+
+    // Counter Logic
+    let count = 0;
+    const countLabel = document.getElementById("countLabel");
+
+    document.getElementById("increaseButton").onclick = () => {
+      count++;
+      countLabel.textContent = count;
+    };
+
+    // decrement func to reduce value
+    // arg e - 
+    document.getElementById("decreaseButton").onclick = () => {
+      count--;
+      countLabel.textContent = count;
+      document.body.style.backgroundColor = "green";
+    };
+
+    document.getElementById("resetButton").onclick = () => {
+      count = 0;
+      countLabel.textContent = count;
+    };
+
+    document.getElementById("upgradeButton").onclick = () => {
+      count *= 2;
+      countLabel.textContent = count;
+    };
+  </script>
+
+</body>
+</html>
